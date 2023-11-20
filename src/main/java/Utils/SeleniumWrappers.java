@@ -20,39 +20,47 @@ public class SeleniumWrappers extends BaseTest {
 	}
 
 	public void click(By locator) {
-		
+
+		Log.info("started method <clieck> on locator" + locator.toString());
 		WebElement element = returnWebElement(locator);
 		try {
+
 			waitForTheElementToBeClickable(locator);
 			element.click();
-		}catch(StaleElementReferenceException e) {
-		
-		element = returnWebElement(locator);
-		element.click();
-	}catch(Exception e) {
-		//Log.error(e.getMessage());
-		throw new TestException("Element not found in click");
-		
+			Log.info("clieck() was sucessfull on locator" + locator.toString());
+		} catch (StaleElementReferenceException e) {
+			Log.error("catched<StaleElementReferenceException> on locator" + locator.toString());
+			element = returnWebElement(locator);
+			element.click();
+		} catch (Exception e) {
+			// Log.error(e.getMessage());
+			throw new TestException("Element not found in click");
+
+		}
 	}
-	}
-	
+
 	public void sendKeys(By locator, String text) {
+		
+		Log.info("started method <sendkeys()> on locator" + locator.toString());
 		WebElement element = returnWebElement(locator);
 		waitForElementToBeVisible(locator);
-		
+
 		try {
+			Log.info("started method <sendkeys()> on locator" + locator.toString());
 			element.clear();
+			Log.info("started method <sendkeys()> on locator" + locator.toString());
 			element.sendKeys(text);
-			
-		}catch(Exception e) {
-			//Log.error(e.getMessage());
+
+		} catch (Exception e) {
+			// Log.error(e.getMessage());
 			throw new TestException("Element not found in <sendKeys>");
-			
+
 		}
 	}
 
 	public void waitForTheElementToBeClickable(By locator) {
 		try {
+			Log.info("started method <waitForTheElementToBeClickable> on locator" + locator.toString());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 			wait.until(ExpectedConditions.elementToBeClickable(locator));
 
@@ -74,7 +82,7 @@ public class SeleniumWrappers extends BaseTest {
 	}
 
 	public void waitForElementToBeVisible(By locator) {
-
+		Log.info("started method <waitForElementToBeVisible> on locator" + locator.toString());
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
@@ -91,7 +99,7 @@ public class SeleniumWrappers extends BaseTest {
 
 	}
 
-	public boolean isDispayed(By locator) {
+	public boolean elementIsDispayed(By locator) {
 		return driver.findElement(locator).isDisplayed();
 	}
 
@@ -122,8 +130,8 @@ public class SeleniumWrappers extends BaseTest {
 		Actions action = new Actions(driver);
 		action.scrollByAmount(0, y).perform();
 	}
-	
+
 	public void scrollToElement() {
-		
+
 	}
 }
