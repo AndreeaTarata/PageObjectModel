@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest{
 		app.MyAccount.loginInApp(user, pass); // ii primeste din parameters - deci trebuie sa existe ca parametrii ai metodei
 		
 		assertTrue(app.elementIsDispayed(app.MyAccount.succesMsg));
-		ScrenShots.screenshot(driver);
+		//ScrenShots.screenshot(driver);
 		app.click(app.MyAccount.logoutButton);
 	}
 	
